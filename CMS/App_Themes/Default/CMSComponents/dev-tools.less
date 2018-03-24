@@ -1,0 +1,44 @@
+﻿// Development tools
+&.DevTools {
+    display: block;
+    position: fixed;
+    top: 1px;
+    left: 48%;
+    height: 7px;
+    width: 42px;
+    background: #bdbbbb url('../../CMSPages/GetResource.ashx?image=Design/Controls/FrameResizer/Vertical/maximize.png') no-repeat center center;
+    z-index: 20001;
+
+    a {
+        text-decoration: none;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .DevContent {
+        display: none;
+        text-align: center;
+        padding: 2px;
+    }
+
+    &:hover {
+        width: auto;
+        height: auto;
+        background-image: none;
+
+        .DevContent {
+            display: block;
+        }
+    }
+}
+
+.DevToolsContextMenu {
+    strong {
+        color: @color-white;
+    }
+
+    .warning-icon {
+        margin-left: 0px;
+        margin-right: @margin-50;
+    }
+}

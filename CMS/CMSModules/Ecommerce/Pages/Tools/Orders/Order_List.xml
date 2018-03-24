@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<grid>
+  <actions>
+    <action name="edit" caption="$General.Edit$" icon="Edit.png" />
+    <action name="delete" caption="$General.Delete$" icon="Delete.png" confirmation="$General.ConfirmDelete$" />
+    <action name="previous" caption="$Unigrid.Order.Actions.PreviousStatus$" icon="Left.png" />
+    <action name="next" caption="$Unigrid.Order.Actions.NextStatus$" icon="Right.png" />
+  </actions>
+  <columns>
+    <column name="IDAndInvoice" source="##ALL##" externalsourcename="IDAndInvoice" caption="$Unigrid.Order.Columns.OrderID$" sort="OrderID" wrap="false">
+    </column>
+    <column name="facture" source="facture" caption="facture" wrap="false">
+    </column>>
+    <column width="100%" name="Customer" source="##ALL##" externalsourcename="Customer" caption="$Unigrid.Order.Columns.OrderCustomerFullname$" sort="CustomerLastname" wrap="false">
+    </column>
+
+      <column width="100%" name="Customer" source="##ALL##" externalsourcename="Email" caption="$Unigrid.Order.Columns.OrderCustomerEmail$" sort="CustomerEmail" wrap="false">
+      </column>
+      
+      
+    <column name="Date" source="OrderDate" caption="$Unigrid.Order.Columns.OrderDate$" wrap="false">
+    </column>
+    <column name="MainCurrencyPrice" source="##ALL##" externalsourcename="TotalPriceInMainCurrency" caption="$Unigrid.Order.Columns.OrderTotalPrice$" sort="OrderTotalPriceInMainCurrency" wrap="false" cssclass="TextRight">
+    </column>
+    <column name="OrderPrice" source="##ALL##" externalsourcename="TotalPriceInOrderPrice" caption="$com.orderlist.ordercurrencycaption$" sort="OrderTotalPrice" wrap="false" cssclass="TextRight">
+    </column>
+    <column name="OrderStatus" source="StatusDisplayname" caption="$Unigrid.Order.Columns.OrderStatusID$" wrap="false">
+    </column>>
+    <column name="IsPaid" source="OrderIsPaid" externalsourcename="#yesno" caption="$Unigrid.Order.Columns.OrderIsPaid$" wrap="false">
+    </column>
+    <column name="Note" source="OrderNote" externalsourcename="Note" caption="$com.orderlist.notecaption$" wrap="false">
+      <tooltip encode="true" source="OrderNote"></tooltip>
+    </column>
+    <column source="OrderSiteID" columnname="OrderSiteID" externalsourcename="#sitename" caption="$general.sitename$" wrap="false">
+    </column>
+    <column source="OrderID" visible="false">
+      <filter type="custom" path="~/CMSModules/Ecommerce/Controls/Filters/OrderFilter.ascx" />
+    </column>
+  </columns>
+  <objecttype name="ecommerce.orderlist" />
+  <options>
+    <key name="DisplayFilter" value="true" />
+  </options>
+</grid>

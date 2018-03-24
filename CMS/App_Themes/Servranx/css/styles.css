@@ -1,0 +1,12 @@
+@charset "utf-8";
+@font-face {
+ font-family: 'Sansation_Bold';
+    src: url('fonts/sansation_bold.eot');
+    src: url('fonts/sansation_bold.eot?#iefix') format('embedded-opentype'),
+         url('fonts/sansation_bold.woff') format('woff'),
+         url('fonts/sansation_bold.ttf') format('truetype'),
+         url('fonts/sansation_bold.svg#Sansation_Bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+

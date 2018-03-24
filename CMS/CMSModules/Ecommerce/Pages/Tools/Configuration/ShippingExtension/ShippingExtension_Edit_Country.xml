@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<grid>
+    <actions>
+        <action name="edit" caption="$General.Edit$" icon="Edit.png" />
+        <action name="delete" caption="$General.Delete$" icon="Delete.png" confirmation="$general.confirmdelete$" />
+    </actions>
+    <columns>
+        <column source="CountryDisplayName" caption="Country" wrap="false" localize="true">
+            <filter type="text" />
+        </column>
+        <column source="ShippingBase" caption="Base Cost" wrap="false" localize="true">
+            <filter type="text" />
+        </column>
+        <column source="Min" caption="Min" wrap="false" localize="true">
+            <filter type="text" />
+        </column>
+        <column source="Max" caption="Max" wrap="false" localize="true">
+            <filter type="text" />
+        </column>
+        <column source="Ranges" caption="Ranges" wrap="false" localize="true">
+            <filter type="text" />
+        </column>
+        <column source="Processing" caption="Processing" wrap="false" localize="true">
+            <filter type="text" />
+        </column>
+        <column source="UnitPrice" caption="Unit Price" wrap="false" localize="true">
+            <filter type="text" />
+        </column>
+        <column source="LocalContact" caption="Local Contact" wrap="false" localize="true"  width="100%">
+            <filter type="text" />
+        </column>
+        <column source="Enabled" caption="Enabled" wrap="false" localize="true">
+            <filter type="text" />
+        </column>
+    </columns>
+    <options>
+        <key name="DisplayFilter" value="true" />
+    </options>
+</grid>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<grid>
+    <actions>
+        <action name="country" caption="Country" icon="~/App_Themes/Default/Images/DocumentTypeIcons/cms_root.png" />
+        <action name="edit" caption="$General.Edit$" icon="Edit.png" />
+        <action name="delete" caption="$General.Delete$" icon="Delete.png" confirmation="$general.confirmdelete$" />
+    </actions>
+    <columns>
+        <column source="ShippingOptionDisplayName" caption="Name" wrap="false" localize="true">
+            <filter type="text" />
+        </column>
+        <column source="CountryCount" caption="Countries" wrap="false" localize="true" >
+            <filter type="text" />
+        </column>
+        <column source="Processing" caption="Processing" wrap="false" localize="true" >
+            <filter type="text" />
+        </column>
+        <column source="LocalContact" caption="Local Contact" wrap="false" localize="true"  width="100%">
+            <filter type="text" />
+        </column>
+        <column source="Enabled" caption="Enabled" wrap="false" localize="true">
+            <filter type="text" />
+        </column>
+    </columns>
+    <options>
+        <key name="DisplayFilter" value="true" />
+    </options>
+</grid>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<grid>
+    <actions>
+        <action name="delete" caption="$General.Delete$" icon="Delete.png" confirmation="$general.confirmdelete$" />
+    </actions>
+    <columns>
+        <column Source="CountryDisplayName" Caption="Name" Wrap="false" Localize="true">
+        </column>
+    </columns>
+</grid>

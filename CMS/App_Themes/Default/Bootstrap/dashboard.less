@@ -1,0 +1,265 @@
+﻿.dashboard {
+    padding: (6 * @base-unit) @base-unit (2 * @base-unit) (12 * @base-unit);
+    background: @dashboard-bg url(../../CMSPages/GetResource.ashx?image=background.png) no-repeat center bottom fixed;
+    min-height: 100%;
+    width: 100%;
+    float: left;
+    position: absolute;
+
+    .dashboard-inner {
+        max-width: (7 * (@tile-width + (@base-unit * 0.5)));
+    }
+
+    .box-sizing (border-box);
+
+    .tile {
+        background-color: @tile-bg;
+        display: inline-block;
+        text-align: center;
+        margin: 0 (@base-unit * 0.5) (@base-unit * 0.5) 0;
+        float: left;
+
+        &:last-child {
+            margin-left: 0;
+        }
+
+        .welcome-tile {
+            @tile-padding: 2 * @base-unit;
+            @w-tile-width: (3 * @tile-width) + (2 * @base-unit * 0.5) - (2 * @tile-padding);
+            background-color: @color-blue-100;
+            color: @color-white;
+            padding: @tile-padding;
+            text-align: left;
+            width: @w-tile-width; // 3 tiles + 2 tile spaces - my padding
+            height: 16 * @base-unit;
+            position: relative;
+            overflow: hidden;
+
+            h2 {
+                color: @color-white;
+                width: @w-tile-width;
+                height: @base-unit * 2.5;
+                overflow: hidden;
+            }
+
+            .lead {
+                margin-bottom: @base-unit * 2.25;
+                width: @w-tile-width;
+                height: @base-unit * 3;
+                overflow: hidden;
+            }
+
+            a {
+                color: @color-white;
+                white-space: nowrap;
+
+                .icon-modal-close {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    margin: @base-unit;
+                }
+            }
+
+            ul {
+                list-style: none;
+                float: right;
+                margin-right: @base-unit * 0.75;
+
+                i {
+                    font-size: 2.8em;
+                    padding: @base-unit * 0.4;
+                }
+
+                li {
+                    height: 51px;
+                    max-width: 282px;
+                    overflow: hidden;
+
+                    span {
+                        vertical-align: top;
+                        padding: @base-unit;
+                        display: inline-block;
+                        max-width: 198px;
+                        overflow: hidden;
+                    }
+                }
+            }
+            // Home icon
+            &:after {
+                content: @icon-home;
+                font-family: @icon-font-name;
+                display: block;
+                font-size: 7em;
+                position: absolute;
+                left: 2 * @base-unit;
+                bottom: 2 * @base-unit;
+            }
+        }
+
+        .tile-btn {
+            text-decoration: none;
+            height: @tile-height;
+            width: @tile-width;
+            display: inline-block;
+            padding: @base-unit * 0.5;
+            .box-sizing(border-box);
+            .transition(all 125ms);
+
+            &:hover {
+                border-bottom: (@base-unit * 0.5) solid @tile-hover-bg;
+            }
+        }
+    }
+
+    .empty {
+        .tile {
+            background-color: transparent;
+            border: @empty-tile-border-width dashed @color-gray-100;
+            border-radius: @border-radius-xlarge;
+            height: @tile-height;
+            width: @tile-width;
+            float: left;
+        }
+
+        .info {
+            float: left;
+            padding-left: @base-unit * 2;
+            width: @tile-width * 3;
+        }
+    }
+
+    h3 {
+        color: @dashboard-color;
+        font-size: @font-size-large;
+        font-weight: normal;
+        line-height: @base-unit * 1.5;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        display: -webkit-box;
+        max-height: @base-unit * 3; // Fallback
+        -webkit-line-clamp: 2; // Number of lines to show
+        -webkit-box-orient: vertical;
+    }
+
+    ul {
+        padding: 0;
+    }
+
+    .cat-development {
+        & > i {
+            color: @color-gray-70;
+        }
+
+        &:hover,
+        &.tile-btn:hover {
+            border-bottom-color: @color-gray-70;
+        }
+    }
+
+    .cat-cmsdesk-onlinemarketing {
+        & > i {
+            color: @color-red-100;
+        }
+
+        &:hover,
+        &.tile-btn:hover {
+            border-bottom-color: @color-red-100;
+        }
+    }
+
+    .cat-contentmanagementcategory {
+        & > i {
+            color: @color-green-100;
+        }
+
+        &:hover,
+        &.tile-btn:hover {
+            border-bottom-color: @color-green-100;
+        }
+    }
+
+    .cat-socialandcommunity.app-twitter {
+        & > i {
+            color: @color-app-twitter;
+        }
+
+        &:hover,
+        &.tile-btn:hover {
+            border-bottom-color: @color-app-twitter;
+        }
+    }
+
+    .cat-socialandcommunity {
+        & > i {
+            color: @color-blue-100;
+        }
+
+        &:hover,
+        &.tile-btn:hover {
+            border-bottom-color: @color-blue-100;
+        }
+    }
+
+    .cat-development {
+        & > i {
+            color: @color-purple-100;
+        }
+
+        &:hover,
+        &.tile-btn:hover {
+            border-bottom-color: @color-purple-100;
+        }
+    }
+
+    .cat-socialandcommunity.app-facebook {
+        & > i {
+            color: @color-app-facebook;
+        }
+
+        &:hover,
+        &.tile-btn:hover {
+            border-bottom-color: @color-app-facebook;
+        }
+    }
+
+    .cat-configuration {
+        & > i {
+            color: @color-gray-80;
+        }
+
+        &:hover,
+        &.tile-btn:hover {
+            border-bottom-color: @color-gray-80;
+        }
+    }
+
+    .cat-cmsdesk-ecommerce {
+        & > i {
+            color: @color-orange-80;
+        }
+
+        &:hover,
+        &.tile-btn:hover {
+            border-bottom-color: @color-orange-80;
+        }
+    }
+
+    [class^="cat-"], [class*=" cat-"], [class^="app-"], [class*=" app-"] {
+        background-color: transparent;
+    }
+}
+
+@media screen and (max-height: 750px) {
+    .dashboard {
+        padding-top: 2 * @base-unit;
+    }
+}
+
+@media screen and (max-width: @screen-lg) {
+    .dashboard {
+        padding-left: @base-unit;
+    }
+}

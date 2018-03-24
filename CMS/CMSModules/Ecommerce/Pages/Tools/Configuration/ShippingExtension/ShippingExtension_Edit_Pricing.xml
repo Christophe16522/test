@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<grid>
+    <actions>
+        <action name="edit" caption="$General.Edit$" icon="Edit.png" />
+        <action name="delete" ExternalSourceName="deleteaction" caption="$General.Delete$" icon="Delete.png" confirmation="$general.confirmdelete$" />
+    </actions>
+    <columns>
+        <column source="ShippingUnitFrom" caption="From" wrap="false" localize="true">
+            <filter type="text"/>
+        </column>
+        <column source="ShippingUnitTo" caption="To" wrap="false" localize="true">
+            <filter type="text"/>
+        </column>
+        <column source="ShippingUnitPrice" caption="Price" wrap="false" localize="true"  width="100%">
+            <filter type="text"/>
+        </column>
+    </columns>
+
+    <options>
+        <key name="DisplayFilter" value="true" />
+    </options>
+</grid>

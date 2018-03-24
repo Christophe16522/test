@@ -1,0 +1,297 @@
+﻿.InstallBody {
+    background-color: #0f6194;
+}
+
+&.InstallBody {
+    .InstallBody;
+}
+
+.InstallerWaterMark {
+    text-align: center;
+}
+
+.InstallerBody {
+    text-align: center;
+    width: 974px;
+    margin: 0 auto 0 auto;
+    padding-top: 135px;
+}
+
+.InstallPanel {
+    margin: 0 auto 0 auto;
+    background-color: #D6D9D6;
+    width: 620px;
+}
+
+    .InstallPanel.SeparatePanel {
+        margin: auto;
+    }
+
+.InstallHeader {
+    text-align: center;
+    display: block;
+}
+
+h3.InstallHeader {
+    margin-bottom: @base-unit;
+    padding-top: @base-unit;
+}
+
+.InstallContent {
+    padding: @base-unit @base-unit;
+    min-height: 345px;
+    background-color: #D6D9D6;
+}
+
+.InstalHeader {
+    padding-right: 3px;
+}
+
+.InstallGroupTitle {
+    font-weight: bold;
+    display: block;
+    padding-bottom: @base-unit * 0.5;
+    padding-top: @base-unit;
+    color: #ffffff;
+    text-align: left;
+}
+
+.InstallWizard {
+    margin: auto;
+    width: 100%;
+    text-align: left;
+    padding: 0 0 10px 0;
+    margin-top: 20px;
+}
+
+    .InstallWizard .cms-icon-80 {
+        padding: 0 0 0 4px;
+    }
+
+.SeparatePanel .InstallWizard {
+    margin-top: 0;
+}
+
+.InstallFooter {
+    padding: @base-unit @base-unit 0 @base-unit;
+    height: 44px;
+    background-color: #fff;
+}
+
+.IE .InstallFooter {
+    height: 45px;
+}
+
+.InstallerError {
+    width: 620px;
+    margin: auto;
+    margin-top: 5px;
+}
+
+.InstallerBody .ErrorLabel {
+    color: @color-gray-50;
+    background-color: @color-red-130;
+    padding: @base-unit;
+}
+
+.InstallerBody .HelpLink {
+    color: #ffffff;
+}
+
+.InstallDBProgressLabel {
+    text-align: left;
+    margin-top: @base-unit;
+    margin-left: @base-unit;
+}
+
+.InstallProgress {
+    border: 0;
+    overflow: auto;
+    height: 246px;
+    background: #ffffff;
+}
+
+.InstallDBProgress {
+    padding: 0 @base-unit (@base-unit * 0.5) @base-unit;
+}
+
+.InstallSelectedItem, .InstallItem:hover {
+    margin: 4px 4px 4px 5px;
+    background: #d0e8ed;
+    cursor: pointer;
+}
+
+.InstallItem {
+    margin: 4px 4px 4px 5px;
+    cursor: pointer;
+}
+
+.InstallDisabledItem {
+    margin: 3px 3px 3px 3px;
+    color: #cccccc !important;
+    border: 0;
+    background-color: #ffffff;
+    cursor: default;
+}
+
+.InstallContentNewSite {
+    padding: 0 35px 4px 35px;
+}
+
+.SiteProgress {
+    border: 0;
+    overflow: auto;
+    height: 270px;
+    background: #ffffff;
+    margin-bottom: 10px;
+}
+
+.InstallSiteProgress {
+    height: 326px;
+    text-align: left;
+    margin: @base-unit @base-unit 0 @base-unit;
+}
+
+.Safari .InstallSiteProgress {
+    height: 320px;
+}
+
+.IE9 .InstallSiteProgress {
+    margin-bottom: 0;
+}
+
+
+// Installer
+
+.InstallContentLicencing {
+    padding: 0 46px 10px 43px;
+}
+
+.InstallContentPermission {
+    padding: 45px 46px 11px 43px;
+}
+
+.IE9 .InstallContentPermission {
+    margin-bottom: 4px !important;
+}
+
+.InstallerContent {
+    margin: auto;
+    width: 620px;
+    text-align: center;
+
+    .connection-string {
+        display: inline-block;
+        -ms-word-break: break-all;
+        word-break: break-all;
+    }
+
+    .install-log {
+        height: 180px;
+    }
+}
+
+#wzdInstaller_pnlFinished {
+    padding: 0 20px;
+}
+
+.InstallerFooter {
+    margin: 16px auto 16px auto;
+    width: 620px;
+}
+
+.InstallPermission {
+    color: Red;
+    font-weight: bold;
+    text-align: left;
+}
+
+.LeftAlignedText {
+    text-align: left;
+}
+
+.RTL .LeftAlignedText {
+    text-align: right;
+}
+
+.RTL .InstallPermission {
+    text-align: right;
+}
+
+.InstallWizard td {
+    margin: 0;
+    padding: 0;
+}
+
+.InstallWizard tr {
+    height: 33px;
+}
+
+.InstallSQLName td {
+    padding-top: 15px;
+    padding-bottom: 8px;
+}
+
+.InstallSQLPwd td {
+    padding-bottom: 15px;
+    padding-top: 8px;
+}
+
+.InstallWizardNewSite tr {
+    height: 23px;
+}
+
+.RTL .InstallWizard {
+    margin: auto;
+    text-align: left;
+}
+
+.RTL .SeparatePanel .InstallWizard {
+    text-align: right;
+}
+
+.InstallCreateDBobjects {
+    vertical-align: top;
+}
+
+.InstallWizard table {
+    padding: 0;
+    margin: 0;
+}
+
+.RTL .InstallForm {
+    text-align: right;
+}
+
+.InstallPanel td.Center {
+    vertical-align: top;
+}
+
+.Safari .InstallPanel td.Center {
+    height: 5px;
+}
+
+.RTL .InstallPanel .Top .Left {
+    background-position: right top;
+}
+
+.RTL .InstallPanel .Top .Right {
+    background-position: right top;
+}
+
+.RTL .InstallPanel .Bottom .Left {
+    background-position: right bottom;
+}
+
+.RTL .InstallPanel .Bottom .Right {
+    background-position: right bottom;
+}
+
+.InstallAccountName {
+    padding-left: 24px;
+}
+
+td.wag-dialog-label {
+    width: 80px;
+    padding-right: @base-unit * 0.5;
+}

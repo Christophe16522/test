@@ -1,0 +1,43 @@
+﻿using System;
+
+using CMS;
+using CMS.DocumentEngine;
+using CMS.Helpers;
+
+[assembly: RegisterDocumentType(DocType.CLASS_NAME, typeof(DocType))]
+
+/// <summary>
+/// Sample document type class.
+/// </summary>
+public partial class DocType : TreeNode
+{
+    #region "Constants"
+
+    /// <summary>
+    /// Class name of the item.
+    /// </summary>
+    public const string CLASS_NAME = "##CLASSNAME##";
+
+    #endregion
+        
+
+    #region "Properties"
+
+    // ##PROPERTIES##
+
+    #endregion
+
+
+    #region "Methods"
+
+    /// <summary>
+    /// Constructor.
+    /// </summary>
+    public DocType()
+        : base(CLASS_NAME)
+    {
+
+    }
+
+    #endregion
+}

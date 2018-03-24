@@ -1,0 +1,72 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+using CMS.SettingsProvider;
+using CMS.GlobalHelper;
+using System.Data;
+using CMS.DataEngine;
+
+/// <summary>
+/// Description résumée de MCSMacros
+/// </summary>
+[MCSMacros]
+public partial class CMSModuleLoader
+{
+    /// <summary>
+    /// Attribute class ensuring the registration of macro handlers.
+    /// </summary>
+    private class MCSMacros : CMSLoaderAttribute
+    {
+        /// <summary>
+        /// Called automatically when the application starts.
+        /// </summary>
+        public override void Init()
+        {
+            // Assigns a custom macro resolving handler.
+            MacroResolver.OnResolveCustomMacro += MacroResolver_OnResolveCustomMacro;
+        }
+
+        /// <summary>
+        /// Resolves custom macros.
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event arguments representing the resolved macro</param>
+        private void MacroResolver_OnResolveCustomMacro(object sender, MacroEventArgs e)
+        {
+            // Checks that the macro is not resolved yet.
+            if (!e.Match)
+            {
+                // Defines the return values of specific custom macro expressions.
+                switch (e.Expression.ToLower())
+                {
+                    // Handles the {#visibility#} macro.
+                    case "visibility":
+                        e.Match = true;                        
+                        string QuID = HttpContext.Current.Request.QueryString["QuID"];
+                        string Query = "select count(*) as Nbagendas from custom_activites where Theme = (select QuestionTHEMATIQUEPRINCIPALE from custom_question where QuestionID = '" + QuID + "')";
+                        QueryDataParameters parameters = new QueryDataParameters();
+                        DataSet ds = ConnectionHelper.ExecuteQuery(Query, parameters, QueryTypeEnum.SQLQuery, true);
+                        int nbagendas = Convert.ToInt32(ds.Tables[0].Rows[0]["Nbagendas"]);
+                        if (nbagendas == 0) e.Result = "true";
+                        else e.Result = "false";
+                        break;     
+                   
+                    case "visibilitycommenttitle":
+                        e.Match = true;
+                        string QID = HttpContext.Current.Request.QueryString["QuID"];
+                        Query = "SELECT count(*) as NbCommentaire FROM View_custom_commentaire_Joined JOIN View_CMS_User on View_CMS_User.UserID = View_custom_commentaire_Joined.DocumentCreatedByUserID where NodeParentID = (select NodeID from View_custom_question_Joined where QuestionID = '" + QID + "')";
+                        QueryDataParameters parameters1 = new QueryDataParameters();
+                        ds = ConnectionHelper.ExecuteQuery(Query, parameters1, QueryTypeEnum.SQLQuery, true);
+                        int nbcomments = Convert.ToInt32(ds.Tables[0].Rows[0]["NbCommentaire"]);
+                        if (nbcomments == 0) e.Result = "false";
+                        else e.Result = "true";
+                        break;                 
+
+                }
+            }
+        }
+
+    }
+}

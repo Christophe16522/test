@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<grid>
+    <actions>
+        <action name="add" caption="$General.Add$" icon="add.png" />
+    </actions>
+    <columns>
+        <column source="CountryDisplayName" caption="Country" wrap="false" localize="true" width="100%">
+            <filter type="text"/>
+        </column>
+    </columns>
+    <options>
+        <key name="DisplayFilter" value="true" />
+    </options>
+</grid>

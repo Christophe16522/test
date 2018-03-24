@@ -1,0 +1,276 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using CMS.Ecommerce;
+using CMS.SettingsProvider;
+using CMS.DataEngine;
+using CMS.SiteProvider;
+using CMS.GlobalHelper;
+
+
+/// <summary>
+/// Customized ShippingExtendedInfoProvider
+/// </summary>
+public class ShippingExtendedInfoProvider : ShippingOptionInfoProvider
+{
+    public int ShippingExtendedPriceId = -1;
+    public ShippingExtendedInfoProvider()
+    {
+        //
+        // TODO: ajoutez ici la logique du constructeur
+        //
+
+
+    }
+
+
+
+    /// <summary>
+    /// Calculates the shipping price for the specified shopping cart (shipping taxes are not included).
+    /// Returns the shipping price in the site's main currency.
+    /// </summary>
+    /// <param name="cart">
+    /// Object representing the related shopping cart. Provides the data used to calculate the shipping price.
+    /// </param>
+    /// 
+    protected override double CalculateShippingTaxInternal(ShoppingCartInfo cart)
+    {
+        double result = 0;
+        // Checks that the shopping cart specified in the parameter exists
+        if (cart != null)
+        {
+            int CartShippingUnit = GetCartShippingUnit(cart);
+            if (CartShippingUnit > 0)
+            {
+                int PriceID = ValidationHelper.GetInteger(SessionHelper.GetValue("PriceID"), 0);
+                int CountryID = ValidationHelper.GetInteger(SessionHelper.GetValue("CountryID"), 0);
+                if (PriceID > 0 && CountryID >0)
+                {
+                    result = GetTaxFromPriceID(PriceID, CountryID, CartShippingUnit);
+                }
+            }
+
+        }
+        return result;
+    }
+
+    protected override double CalculateShippingInternal(ShoppingCartInfo cart)
+    {
+        double result = 0;
+        // Checks that the shopping cart specified in the parameter exists
+        if (cart != null)
+        {
+            int CartShippingUnit = GetCartShippingUnit(cart);
+
+            if (CartShippingUnit > 0)
+            {
+                int PriceID = ValidationHelper.GetInteger(SessionHelper.GetValue("PriceID"), 0);
+                int CountryID = ValidationHelper.GetInteger(SessionHelper.GetValue("CountryID"), 0);
+                if (PriceID > 0 && CountryID > 0)
+                {
+                    result = GetPriceFromPriceID(PriceID, CountryID, CartShippingUnit);
+                }
+            }
+
+        }
+        return result;
+    }
+
+    private double GetPriceFromPriceID(int priceID, int countryID, int cartUnit)
+    {
+        double result = 0;
+        
+        QueryDataParameters parameters = new QueryDataParameters();
+        parameters.Add("@ShippingUnits", cartUnit);
+        parameters.Add("@CountryID", countryID);
+        string where = string.Format("ItemID={0}", priceID.ToString());
+        GeneralConnection cn = ConnectionHelper.GetConnection();
+        DataSet ds = cn.ExecuteQuery("customtable.shippingextension.ShippingCostListByCountry", parameters, where);
+
+
+        if (!DataHelper.DataSourceIsEmpty(ds))
+        {
+            foreach (DataRow drow in ds.Tables[0].Rows)
+            {
+                if ((int)drow["ItemId"] == priceID)
+                {
+                    result = ValidationHelper.GetDouble(drow["ShippingTotalPrice"], 0);
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
+
+
+    private double GetTaxFromPriceID(int priceID, int countryID, int cartUnit)
+    {
+        double result = 0;
+
+        QueryDataParameters parameters = new QueryDataParameters();
+        parameters.Add("@ShippingUnits", cartUnit);
+        parameters.Add("@CountryID", countryID);
+        string where = string.Format("ItemID={0}", priceID.ToString());
+        GeneralConnection cn = ConnectionHelper.GetConnection();
+        DataSet ds = cn.ExecuteQuery("customtable.shippingextension.ShippingCostListByCountry", parameters, where);
+
+
+        if (!DataHelper.DataSourceIsEmpty(ds))
+        {
+            foreach (DataRow drow in ds.Tables[0].Rows)
+            {
+                if ((int)drow["ItemId"] == priceID)
+                {
+                    result = ValidationHelper.GetDouble(drow["ShippingTotalPrice"], 0);
+                    result = ValidationHelper.GetDouble(drow["ShippingFinalCost"], 0)-result;
+                    return result;
+                }
+            }
+        }
+        return result;
+    }
+    public static int GetCartShippingUnit(ShoppingCartInfo cart)
+    {
+        int result = 0;
+        foreach (ShoppingCartItemInfo item in cart.CartItems)
+        {
+            int ShippingUnit = GetSKUShippingUnit(item.SKUID);
+            int ShippingTotal = ShippingUnit * item.CartItemUnits;
+            result += ShippingTotal;
+        }
+        return result;
+    }
+
+    private static int GetSKUShippingUnit(int SKIUD)
+    {
+        int result = 0;
+
+        GeneralConnection cn = ConnectionHelper.GetConnection();
+        string stringQuery = string.Format("SELECT ShippingUnit FROM CONTENT_Product WHERE ProductID=(SELECT Top 1 DocumentForeignKeyValue FROM view_cms_tree_joined WHERE ClassName='CMS.Product' AND SKUID={0})", SKIUD.ToString());
+        DataSet ds = cn.ExecuteQuery(stringQuery, null, QueryTypeEnum.SQLQuery, false);
+        if (!DataHelper.DataSourceIsEmpty(ds))
+        {
+            result = ValidationHelper.GetInteger(ds.Tables[0].Rows[0]["ShippingUnit"], 0);
+        }
+        return result;
+    }
+
+    public static List<AddressInfo> GetAdresses(bool billing, bool shipping, ShoppingCartInfo cart)
+    {
+        List<AddressInfo> Result = new List<AddressInfo>();
+        string where = string.Empty, orderby = string.Empty;
+        AddressInfo ai;
+        DataSet ds, dsoi = null;
+        if (billing)
+        {
+            ai = AddressInfoProvider.GetAddressInfo(cart.ShoppingCartBillingAddressID);
+            if (ai == null)
+            {
+                where = string.Format("OrderCustomerID={0}", ECommerceContext.CurrentCustomer.CustomerID.ToString());
+                orderby = "OrderID DESC";
+                dsoi = OrderInfoProvider.GetOrderList(where, orderby);
+                if (!DataHelper.DataSourceIsEmpty(dsoi))
+                {
+                    foreach (DataRow drow in dsoi.Tables[0].Rows)
+                    {
+                        OrderInfo oi = new OrderInfo(drow);
+                        AddressInfo bai = AddressInfoProvider.GetAddressInfo(oi.OrderBillingAddressID);
+                        if (bai.AddressEnabled && bai.AddressIsBilling)
+                        {
+                            ai = bai;
+                            cart.ShoppingCartBillingAddressID = bai.AddressID;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (ai == null)
+            {
+                where = string.Format("AddressCustomerID={0} AND AddressIsBilling=1", ECommerceContext.CurrentCustomer.CustomerID.ToString());
+                orderby = "AddressID";
+                ds = AddressInfoProvider.GetAddresses(where, orderby);
+                if (!DataHelper.DataSourceIsEmpty(ds))
+                {
+                    ai = new AddressInfo(ds.Tables[0].Rows[0]);
+                    cart.ShoppingCartBillingAddressID = ai.AddressID;
+                }
+            }
+            Result.Add(ai);
+        }
+
+        if (shipping)
+        {
+            ai = AddressInfoProvider.GetAddressInfo(cart.ShoppingCartShippingAddressID);
+            if (ai == null)
+            {
+                if (DataHelper.DataSourceIsEmpty(dsoi))
+                {
+                    where = string.Format("OrderCustomerID={0}", ECommerceContext.CurrentCustomer.CustomerID.ToString());
+                    orderby = "OrderID DESC";
+                    dsoi = OrderInfoProvider.GetOrderList(where, orderby);
+                }
+                if (!DataHelper.DataSourceIsEmpty(dsoi))
+                {
+                    foreach (DataRow drow in dsoi.Tables[0].Rows)
+                    {
+                        OrderInfo oi = new OrderInfo(drow);
+                        AddressInfo sai = AddressInfoProvider.GetAddressInfo(oi.OrderShippingAddressID);
+                        if (sai.AddressEnabled && sai.AddressIsShipping)
+                        {
+                            ai = sai;
+                            cart.ShoppingCartShippingAddressID = sai.AddressID;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (ai == null)
+            {
+                where = string.Format("AddressCustomerID={0} AND AddressIsShipping=1", ECommerceContext.CurrentCustomer.CustomerID.ToString());
+                ds = AddressInfoProvider.GetAddresses(where, orderby);
+                if (!DataHelper.DataSourceIsEmpty(ds))
+                {
+                    ai = new AddressInfo(ds.Tables[0].Rows[0]);
+
+                    cart.ShoppingCartShippingAddressID = ai.AddressID;
+                }
+                else
+                {
+                    // NO SHIPPING ADDRESS DEFINED- PICK FIRST BILLING ADDRESS    
+                    AddressInfo ai_shipping = AddressInfoProvider.GetAddressInfo(cart.ShoppingCartBillingAddressID);
+                    ai_shipping.AddressIsShipping = true;
+                    AddressInfoProvider.SetAddressInfo(ai_shipping);
+                    where = string.Format("AddressCustomerID={0} AND AddressIsShipping=1", ECommerceContext.CurrentCustomer.CustomerID.ToString());
+                    ds = AddressInfoProvider.GetAddresses(where, orderby);
+                    if (!DataHelper.DataSourceIsEmpty(ds))
+                    {
+                        ai = new AddressInfo(ds.Tables[0].Rows[0]);
+                        cart.ShoppingCartShippingAddressID = ai.AddressID;
+                    }
+
+                }
+            }
+            Result.Add(ai);
+        }
+        return Result;
+    }
+}
+
+[CustomProviderLoader]
+public partial class CMSModuleLoader
+{
+    /// <summary>
+    /// Attribute class that ensures the loading of custom providers.
+    /// </summary>
+    private class CustomProviderLoader : CMSLoaderAttribute
+    {
+        /// <summary>
+        /// Called automatically when the application starts.
+        /// </summary>
+        public override void Init()
+        {
+            // Registers the 'ShippingExtendedInfoProvider' class as the ShippingOptionInfoProvider
+            ShippingOptionInfoProvider.ProviderObject = new ShippingExtendedInfoProvider();
+        }
+    }
+}

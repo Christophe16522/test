@@ -1,0 +1,22 @@
+﻿<grid>
+  <actions parameters="ShippingOptionID">
+    <action name="edit" caption="$general.edit$" fonticonclass="icon-edit" fonticonstyle="allow"  />
+    <action name="delete" caption="$general.delete$" fonticonclass="icon-bin" fonticonstyle="critical" confirmation="$general.confirmdelete$" />
+  </actions>
+  <columns>
+    <column source="ShippingOptionDisplayName" caption="$general.displayname$" wrap="false">
+      <filter type="text" />
+    </column>
+    <column source="##ALL##" externalsourcename="ShippingOptionCharge" caption="$Unigrid.COM_ShippingOption.Columns.ShippingOptionCharge$" wrap="false" cssclass="TextRight" >
+    </column>
+    <column source="ShippingOptionEnabled" externalsourcename="#yesno" caption="$general.enabled$" wrap="false" >
+    </column>
+    <column source="ShippingOptionID" sort="ShippingOptionSiteID" columnname="ShippingOptionSiteID" externalsourcename="#transform: ecommerce.shippingoption: {% (ToInt(ShippingOptionSiteID, 0) == 0) ? GetResourceString(&quot;com.globally&quot;) : GetResourceString(&quot;com.onthissiteonly&quot;) %}" caption="$com.available$" wrap="false" >
+    </column>
+    <column width="100%" />
+  </columns>
+  <objecttype name="ecommerce.shippingoption" columns="ShippingOptionID,ShippingOptionDisplayName,ShippingOptionCharge,ShippingOptionEnabled,ShippingOptionSiteID" />
+  <options>
+    <key name="DisplayFilter" value="true" />
+  </options>
+</grid>

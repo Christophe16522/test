@@ -1,0 +1,118 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using CMS.FormEngine;
+using CMS.SettingsProvider;
+using CMS.GlobalHelper;
+using System.Data;
+using CMS.DataEngine;
+using CMS.EventLog;
+
+[CustomMacroLoader]
+public partial class CMSModuleLoader
+{
+    /// <summary>
+    /// Attribute class ensuring the registration of macro handlers.
+    /// </summary>
+    private class CustomMacroLoader : CMSLoaderAttribute
+    {
+        /// <summary>
+        /// Called automatically when the application starts.
+        /// </summary>
+        public override void Init()
+        {
+            // Assigns a custom macro resolving handler.
+            MacroResolver.OnResolveCustomMacro += MacroResolver_OnResolveCustomMacro;
+        }
+
+
+        /// <summary>
+        /// Resolves custom macros.
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event arguments representing the resolved macro</param>
+        private void MacroResolver_OnResolveCustomMacro(object sender, MacroEventArgs e)
+        {
+            EventLogProvider ev = new EventLogProvider();
+            // Checks that the macro is not resolved yet.
+            if (!e.Match)
+            {
+                // Defines the return values of specific custom macro expressions.
+                switch (e.Expression.ToLower())
+                {
+                    // Handles the {#CustomExpression#} macro.
+                    case "firstletter":
+                        string firstletter = CMS.CMSHelper.CMSContext.CurrentResolver.ResolveMacros("{%CurrentUser.LastName%}");
+                        string substr = string.Empty;
+                        if (!string.IsNullOrEmpty(firstletter))
+                            substr = firstletter.Substring(0, 1);
+
+                        e.Match = true;
+                        e.Result = substr;
+                        break;
+
+                    case "priceht":
+
+
+                        //Get Shopping Cart Object from resolver
+                        MacroResolver test = (MacroResolver)sender;
+
+                        CMS.Ecommerce.ShoppingCartInfo cartObj = test.SourceObject as CMS.Ecommerce.ShoppingCartInfo;
+                        CMS.Ecommerce.CurrencyInfo currentCurrency = null;
+                        currentCurrency = cartObj.Currency;
+                        double tax = Convert.ToDouble(cartObj.TotalTax);
+                        double price = Convert.ToDouble(cartObj.TotalPrice);
+                        double resultat = price - tax;
+                        e.Match = true;
+                        e.Result = CMS.Ecommerce.CurrencyInfoProvider.GetFormattedValue(resultat, currentCurrency).ToString();
+                        break;
+                    case "taxe":
+                        MacroResolver test1 = (MacroResolver)sender;
+                        CMS.Ecommerce.ShoppingCartInfo cartObj1 = test1.SourceObject as CMS.Ecommerce.ShoppingCartInfo;
+                        double taxe = Convert.ToDouble(cartObj1.TotalTax);
+                        currentCurrency = cartObj1.Currency;
+                        e.Match = true;
+                        e.Result = CMS.Ecommerce.CurrencyInfoProvider.GetFormattedValue(taxe, currentCurrency).ToString();
+                        break;
+                    case "invoice":
+                        int num = 0;
+                        DataSet orders = CMS.Ecommerce.OrderInfoProvider.GetOrders(null, null);
+                        if (!DataHelper.DataSourceIsEmpty(orders))
+                        {
+                            // int nb = orders.Tables[0].Rows.Count;
+                            // Create object from DataRow
+                            //  ev.LogEvent("E", DateTime.Now, "nb", nb.ToString());
+                            //78
+                            CMS.Ecommerce.OrderInfo order = new CMS.Ecommerce.OrderInfo(orders.Tables[0].Rows[1]);
+                            ev.LogEvent("E", DateTime.Now, "nb", order.OrderInvoiceNumber);
+                            num = int.Parse(order.OrderInvoiceNumber) + 1;
+
+                            ev.LogEvent("E", DateTime.Now, "nb1", num.ToString());
+
+                        }
+                        e.Match = true;
+                        e.Result = num.ToString();
+                        break;
+                    case "titreinvoice":
+                        string value = string.Empty;
+                        string facture = CMS.CMSHelper.CMSContext.CurrentResolver.ResolveMacros("{%Order.facture%}");
+                        string commande = CMS.CMSHelper.CMSContext.CurrentResolver.ResolveMacros("{%Order.OrderID%}");
+                        if (string.IsNullOrEmpty(facture))
+                        {
+                            value = "Commande N° " + commande;
+                        }
+                        else
+                        {
+                            value = "Facture N° " + facture;
+                        }
+                        e.Match = true;
+                        e.Result = value;
+                        break;
+
+
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using CMS.FormEngine;
+using CMS.SettingsProvider;
+using CMS.GlobalHelper;
+using System.Data;
+using CMS.DataEngine;
+[CustomMacroLoader]
+public partial class CMSModuleLoader
+{
+    /// <summary>
+    /// Attribute class ensuring the registration of macro handlers.
+    /// </summary>
+    private class CustomMacroLoader : CMSLoaderAttribute
+    {
+        /// <summary>
+        /// Called automatically when the application starts.
+        /// </summary>
+        public override void Init()
+        {
+            // Assigns a custom macro resolving handler.
+            MacroResolver.OnResolveCustomMacro += MacroResolver_OnResolveCustomMacro;
+        }
+
+
+        /// <summary>
+        /// Resolves custom macros.
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event arguments representing the resolved macro</param>
+        private void MacroResolver_OnResolveCustomMacro(object sender, MacroEventArgs e)
+        {
+            // Checks that the macro is not resolved yet.
+            if (!e.Match)
+            {
+                // Defines the return values of specific custom macro expressions.
+                switch (e.Expression.ToLower())
+                {
+                    // Handles the {#CustomExpression#} macro.
+                    case "firstletter":
+                        string firstletter = CMS.CMSHelper.CMSContext.CurrentResolver.ResolveMacros("{%CurrentUser.LastName%}");
+                        string substr = string.Empty;
+                        if (!string.IsNullOrEmpty(firstletter))
+                       substr = firstletter.Substring(0, 1);
+      
+                        e.Match = true;
+                        e.Result = substr;
+                        break;
+                   
+                }
+            }
+        }
+    }
+}

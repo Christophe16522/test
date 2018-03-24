@@ -1,0 +1,9 @@
+The hotfix files were copied into the target directory with the '.new' extension. Merge your custom changes into these files and remove the '.new' extensions afterwards.
+H:\kandra\version 7\CMSModules\Ecommerce\Controls\ProductOptions\ShoppingCartItemSelector.ascx.cs
+H:\kandra\version 7\CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartContent.ascx.cs
+H:\kandra\version 7\CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartOrderAddresses.ascx
+H:\kandra\version 7\CMSModules\Ecommerce\Controls\ShoppingCart\ShoppingCartOrderAddresses.ascx.cs
+H:\kandra\version 7\CMSModules\Ecommerce\Controls\UI\PriceSelector.ascx.cs
+H:\kandra\version 7\CMSWebParts\Localization\languageselectionwithflags.ascx.cs
+H:\kandra\version 7\CMSWebParts\Membership\Logon\LogonForm.ascx
+H:\kandra\version 7\CMSWebParts\Membership\Logon\LogonForm.ascx.cs

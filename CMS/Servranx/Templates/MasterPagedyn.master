@@ -1,0 +1,92 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPagedyn.master.cs" Inherits="Servranx_Templates_MasterPagedyn" %>
+<%@ Register Assembly="CMS.Controls" Namespace="CMS.Controls" TagPrefix="cc1" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server" EnableViewState="false">
+ 
+    <title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   </head>
+<style>
+
+        body{
+            width: 700px;
+            margin: 10px auto;
+            padding: 0;
+            font-family: 'Comic Sans MS', Arial;
+            font-size: 15px;
+        }
+        h1{
+            font-family: 'Copperplate Gothic', 'Comic Sans MS', Arial;
+            margin: 10px;
+            text-align: center;
+            font-size: 34px;
+            color: #c45700;
+        }
+        hr{
+            margin-bottom: 15px;
+        }
+        footer{
+            text-align: center;
+            font-family: Arial;
+            background-color: #ddd;
+            color: #333;
+            padding:5px;
+        }
+        table a{
+            text-decoration: none;
+            color: #c45700; 
+            font-size: 17px;
+            font-weight: bold;
+        }
+    </style>
+    
+	
+
+<body EnableViewState="false">
+    <form id="form1" runat="server" EnableViewState="false">
+    <asp:PlaceHolder runat="server" ID="plcManagers" EnableViewState="false">
+          <ajaxToolkit:ToolkitScriptManager ID="manScript" runat="server" EnableViewState="false" ScriptMode="Release" />
+          <cms:CMSPortalManager ID="CMSPortalManager1" runat="server" EnableViewState="false" />
+      </asp:PlaceHolder>
+  
+        
+		<table align="center" cellpadding="0" cellspacing="0" width="100%">
+	<tbody>
+		<tr valign="top">
+			<td align="center" style="border-top:#c45700 5px solid; border-bottom:#c45700 2px solid; background-color:#3c3341; padding:15px 0 30px;">
+				<table cellpadding="0" cellspacing="0" width="600">
+					<tbody>
+						<tr valign="top">
+							<td align="left">
+								<a href="#"><img alt="Servranx Accueil" border="none" height="97" src="http://www.servranx.com/App_Themes/Servranx/images/logo.gif" style="display:block;" width="233" /> </a></td>
+							<td align="right" width="275">
+								<h1 style="font-family:Arial, Helvetica, sans-serif; font-weight:normal; color:#FFF; font-size:24px; margin:0; padding:12px 0 0; text-align:left">
+									&nbsp;</h1>
+								<p style="font-family:Arial, Helvetica, sans-serif; color:#FFF; font-size:13px; margin:0; padding:0;text-align:left">
+									&nbsp;</p>
+								<br />
+								<span style="background-color:#f3740f;font-family:Arial, Helvetica, sans-serif; color:#FFF; font-size:16px; padding:2px 10px;"> <cc1:CMSEditableRegion ID="text1" RegionType="Textbox" RegionTitle="Date" runat="server" /> </span></td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<h1>
+	    <cc1:CMSEditableRegion ID="text" RegionType="Textbox" RegionTitle="titre" runat="server" EnableViewState="false"/>                </h1>
+
+<asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server" EnableViewState="false"> </asp:ContentPlaceHolder>
+<hr />
+<footer>
+	Les éditions Servranx - 23-25, rue Gustave Biot - 1050 Bruxelles - Belgique<br />
+	Tél. : 02 649 18 40 (de l&#39;étranger : 00 32 26 49 18 40). - info@servranx.com - www.servranx.com<br />
+	Cliquez <a href="http://www.servranx.com/Newsletter/Desincription.aspx?lang=fr-BE">ici</a> pour se Désinscrire de la Newsletter</footer>
+<br />
+        
+       
+    </form>
+</body>
+</html>

@@ -1,0 +1,744 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CMS.Tests</name>
+    </assembly>
+    <members>
+        <member name="T:CMS.Tests.DatabaseProperties">
+            <summary>
+            Represents properties of a database used in isolated integration tests.
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.DatabaseProperties.mName">
+            <summary>
+            The name of the database.
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.DatabaseProperties.mFileName">
+            <summary>
+            The name of the database file.
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.DatabaseProperties.mLogFileName">
+            <summary>
+            The name of the database log file.
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.DatabaseProperties.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Tests.DatabaseProperties"/> class.
+            </summary>
+            <param name="name">The name of the database.</param>
+            <param name="folderPath">The name of the database file.</param>
+            <param name="fileName">The name of the database log file.</param>
+        </member>
+        <member name="M:CMS.Tests.DatabaseProperties.CreateForInstance(System.String,System.String)">
+            <summary>
+            Creates a new instance of the <see cref="T:CMS.Tests.DatabaseProperties"/> class that represents an instance database.
+            </summary>
+            <param name="name">The name of the database.</param>
+            <param name="folderPath">The path to the folder with database files.</param>
+            <returns>A new instance of the <see cref="T:CMS.Tests.DatabaseProperties"/> class that represents an instance database.</returns>
+        </member>
+        <member name="M:CMS.Tests.DatabaseProperties.CreateForMaster(System.String,System.String)">
+            <summary>
+            Creates a new instance of the <see cref="T:CMS.Tests.DatabaseProperties"/> class that represents a master database.
+            </summary>
+            <param name="name">The name of the database.</param>
+            <param name="folderPath">The path to the folder with database files.</param>
+            <returns>A new instance of the <see cref="T:CMS.Tests.DatabaseProperties"/> class that represents a master database.</returns>
+        </member>
+        <member name="P:CMS.Tests.DatabaseProperties.Name">
+            <summary>
+            Gets the name of the database.
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.DatabaseProperties.FileName">
+            <summary>
+            Gets the name of the database file.
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.DatabaseProperties.LogFileName">
+            <summary>
+            Gets the name of the database log file.
+            </summary>
+        </member>
+        <member name="T:CMS.Tests.IsolatedIntegrationTests">
+            <summary>
+            Allows integration tests to run in isolation as for each test a clean database with current schema and default objects is created.
+            </summary>
+            <remarks>
+            The isolated integration tests use LocalDB to create and drop databases when needed. It works with two types of database.
+            The master database is created using SQL scripts from the Kentico solution. For each modification of this folder a new master database is created.
+            The master database is detached after it has been created and its files are copied to create an instance database that a running test will use.
+            The instance and master databases share a name, but the file names are different.
+            The instance database is removed when a test finishes and a master database, that is out of date, is removed automatically.
+            </remarks>
+        </member>
+        <member name="T:CMS.Tests.AbstractsTestsBase">
+            <summary>
+            Base class for advanced tests
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.AbstractsTestsBase.#ctor(System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="isolated">If true, the test context is isolated</param>
+        </member>
+        <member name="M:CMS.Tests.AbstractsTestsBase.InitBase">
+            <summary>
+            Inits test base (Ensures static context, reset handlers, inits database)
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.AbstractsTestsBase.CleanUpBase">
+            <summary>
+            Cleans test base (Clean-up database, restore static context)
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.AbstractsTestsBase.ResetHandlers">
+            <summary>
+            Clears the bound event handlers
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.AbstractsTestsBase.EnsureStaticContext">
+            <summary>
+            Ensures the static context for the test
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.AbstractsTestsBase.RestoreStaticContext">
+            <summary>
+            Restores the static context to a previous state
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.AbstractsTestsBase.Lock">
+            <summary>
+            Locks the context
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.AbstractsTestsBase.InitDatabase">
+            <summary>
+            Initializes the test database
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.AbstractsTestsBase.Unlock">
+            <summary>
+            Unlocks the context
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.AbstractsTestsBase.CleanUpDatabase">
+            <summary>
+            Cleans up the database
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.AbstractsTestsBase.Dispose">
+            <summary>
+            Disposes the object
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.AbstractsTestsBase.LockContext">
+            <summary>
+            If true, the test locks the context
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.AbstractsTestsBase.UniqueStaticContext">
+            <summary>
+            If true, the test uses it's own unique static context. Note that this only applies to static variables defined through CMSStatic and CMSStaticObject.
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.AbstractsTestsBase.ResetEventHandlers">
+            <summary>
+            If true, the test resets event handlers to start with a clean slate
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.IsolatedIntegrationTests.mDatabaseScriptFolderPath">
+            <summary>
+            The path to the folder with SQL scripts.
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.IsolatedIntegrationTests.mDatabaseFolderPath">
+            <summary>
+            The path to the folder with database files.
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.IsolatedIntegrationTests.mDatabaseInstanceName">
+            <summary>
+            A name of the instance of Microsoft SQL Server Express LocalDB that will be used to run the tests.
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.IsolatedIntegrationTests.mDatabaseName">
+            <summary>
+            A name of the database for the current test run.
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.IsolatedIntegrationTests.mSolutionFolderPath">
+            <summary>
+            The path to the root folder of the Kentico solution, if found.
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.IsolatedIntegrationTests.mDatabaseFileNameRegex">
+            <summary>
+            The regular expression that matches test database file names.
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CMS.Tests.IsolatedIntegrationTests"/> class.
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.InitDatabase">
+            <summary>
+            Initializes the current test environment.
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.CleanUpDatabase">
+            <summary>
+            Cleans the current test environment.
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.RequireDatabase">
+            <summary>
+            Provides a current version of the instance database.
+            </summary>
+            <returns>The name of the database.</returns>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.ReleaseDatabase(System.String)">
+            <summary>
+            Removes the instance database with the specified name.
+            </summary>
+            <param name="databaseName">The name of the instance database to remove.</param>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.CreateInstanceDatabase(CMS.Tests.DatabaseProperties,CMS.Tests.DatabaseProperties)">
+            <summary>
+            Creates an instance database from the specified master database.
+            </summary>
+            <param name="database">Properties of the instance database to create.</param>
+            <param name="masterDatabase">Properties of the master database.</param>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.RemoveDatabase(CMS.Tests.DatabaseProperties)">
+            <summary>
+            Removes the specified database.
+            </summary>
+            <param name="database">Properties of the database to remove.</param>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.EnsureMasterDatabase(CMS.Tests.DatabaseProperties)">
+            <summary>
+            Creates a current master database if necessary.
+            </summary>
+            <param name="database">Properties of the master database to create.</param>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.PurgeDatabaseFolder">
+            <summary>
+            Removes files of all test databases.
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.InitializeMasterDatabase(CMS.Tests.DatabaseProperties)">
+            <summary>
+            Initializes the specified master database using current SQL scripts and default data.
+            </summary>
+            <param name="database">Properties of the master database to initialize.</param>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.HandleDatabaseInstallationMessage(System.String,CMS.DataEngine.MessageTypeEnum)">
+            <summary>
+            Handles messages reported during the initialization of the database and throws en exception if there is a problem.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="messageType">The message type.</param>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.GetDatabaseScriptTimestamp">
+            <summary>
+            Gets the UTC date and time when the SQL scripts were last modified.
+            </summary>
+            <returns>The UTC date and time when the SQL scripts were last modified.</returns>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.GetDatabaseScriptPath">
+            <summary>
+            Gets the path to the file or folder with SQL scripts that the Kentico installer requires.
+            </summary>
+            <returns>The path to the file or folder with SQL scripts.</returns>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.GetSolutionFolderPath">
+            <summary>
+            Gets a path to the root folder of the Kentico solution provided that it contains a test project with current test.
+            </summary>
+            <returns>A path to the Kentico solution folder, if found; otherwise, null.</returns>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.GetMasterDatabaseProperties">
+            <summary>
+            Gets properties of the current master database.
+            </summary>
+            <returns>Properties of the current master database.</returns>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.GetInstanceDatabaseProperties(System.String)">
+            <summary>
+            Gets properties of the instance database using the specified database name.
+            </summary>
+            <param name="databaseName">A name of the instance database.</param>
+            <returns>Properties of the instance database.</returns>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.GetConnectionString">
+            <summary>
+            Gets a connection string for the LocalDB instance.
+            </summary>
+            <returns>A connection string to the LocalDB instance.</returns>
+        </member>
+        <member name="M:CMS.Tests.IsolatedIntegrationTests.GetConnectionString(CMS.Tests.DatabaseProperties)">
+            <summary>
+            Gets a connection string for the specified instance database.
+            </summary>
+            <param name="database">Properties of the instance database to connect to.</param>
+            <returns>A connection string for the specified instance database.</returns>
+        </member>
+        <member name="P:CMS.Tests.IsolatedIntegrationTests.DatabaseScriptFolderPath">
+            <summary>
+            Gets the path to the folder with SQL scripts.
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.IsolatedIntegrationTests.DatabaseFolderPath">
+            <summary>
+            Gets the path to the folder with database files.
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.IsolatedIntegrationTests.DatabaseInstanceName">
+            <summary>
+            Gets a name of the instance of Microsoft SQL Server Express LocalDB that will be used to create a database.
+            </summary>
+        </member>
+        <member name="T:CMS.Tests.IsolatedUnitTests">
+            <summary>
+            Base class for unit test with isolation of the context
+            </summary>
+        </member>
+        <member name="T:CMS.Tests.UnitTests">
+            <summary>
+            Base class for integration tests
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.UnitTests.#ctor(System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="isolated">If true, the test context is isolated</param>
+        </member>
+        <member name="M:CMS.Tests.UnitTests.InitDatabase">
+            <summary>
+            Initializes the test database
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.UnitTests.InitFakes">
+            <summary>
+            Initializes the fakes within this test
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.UnitTests.CleanUpDatabase">
+            <summary>
+            Cleans up the test database
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.UnitTests.ResetAllFakes">
+            <summary>
+            Resets all fakes registered within the system
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.UnitTests.Fake``1">
+            <summary>
+            Fakes the data for the given info and provider
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.UnitTests.Fake``2">
+            <summary>
+            Fakes the data for the given info and provider
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.IsolatedUnitTests.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="T:CMS.Tests.Benchmark">
+            <summary>
+            Benchmark class
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.Benchmark.BenchmarkAction">
+            <summary>
+            Gets the benchmark action.
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.Benchmark.This(System.Action)">
+            <summary>
+            Creates a new benchmark with the specified action to be benchmarked.
+            </summary>
+            <param name="action">Action to be benchmarked</param>
+        </member>
+        <member name="M:CMS.Tests.Benchmark.This(System.Action{System.Diagnostics.Stopwatch})">
+            <summary>
+            Creates a new benchmark with the specified benchmark action.
+            </summary>
+            <param name="benchmarkAction">Benchmark action</param>
+        </member>
+        <member name="M:CMS.Tests.Benchmark.RunWithWarmup(System.Int32)">
+            <summary>
+            Executes the benchmarked action a specified number of times and returns the result.
+            Runs the action once prior to benchmarking.
+            </summary>
+            <param name="times">Number of times the benchmarked action to be run</param>
+        </member>
+        <member name="M:CMS.Tests.Benchmark.Run(System.Int32)">
+            <summary>
+            Executes the benchmarked action a specified number of times and returns the result.
+            </summary>
+            <param name="times">Number of times the benchmarked action to be run</param>
+        </member>
+        <member name="T:CMS.Tests.BenchmarkResult">
+            <summary>
+            Benchmark result class
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.BenchmarkResult.Results">
+            <summary>
+            Gets the underlaying results.
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.BenchmarkResult.#ctor(System.Collections.Generic.IEnumerable{System.TimeSpan})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="results">Results of the benchmark action runs</param>
+        </member>
+        <member name="M:CMS.Tests.BenchmarkResult.Write(System.IO.TextWriter)">
+             <summary>
+            Writes the formatted information about the results using the specified writer.
+             Uses the System.Console.Out writer if no writer is specified.
+             </summary>
+             <param name="writer">Writer</param>
+        </member>
+        <member name="P:CMS.Tests.BenchmarkResult.Average">
+            <summary>
+            Gets the average result time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.BenchmarkResult.Min">
+            <summary>
+            Gets the shortest result time in milliseconds.
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.BenchmarkResult.Max">
+            <summary>
+            Gets the longest result time in milliseconds.
+            </summary>
+        </member>
+        <member name="T:CMS.Tests.FakeClassStructureInfo`1">
+            <summary>
+            Class structure info for testing purposes
+            </summary>
+        </member>
+        <member name="T:CMS.Tests.FakeClassStructureInfo">
+            <summary>
+            Class structure info for testing purposes
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.FakeClassStructureInfo.NestedClasses">
+            <summary>
+            Nested class structures
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.FakeClassStructureInfo.#ctor(System.Type)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="type">Class type to fake</param>
+        </member>
+        <member name="M:CMS.Tests.FakeClassStructureInfo.AddNestedClass(CMS.DataEngine.ClassStructureInfo)">
+            <summary>
+            Adds the nested class to this class structure info
+            </summary>
+            <param name="nested">Nested class</param>
+        </member>
+        <member name="M:CMS.Tests.FakeClassStructureInfo.IncludeColumns(System.Type)">
+            <summary>
+            Includes the columns from the given type
+            </summary>
+            <param name="type">Type from which the columns should be collected</param>
+        </member>
+        <member name="M:CMS.Tests.FakeClassStructureInfo.RegisterColumns(System.Type,System.Boolean)">
+            <summary>
+            Registers the columns from the given type. Returns true if some columns were registered
+            </summary>
+            <param name="type">Type from which the columns should be collected</param>
+            <param name="onlyMarked">If true, only marked columns are registered</param>
+        </member>
+        <member name="M:CMS.Tests.FakeClassStructureInfo.GetNewDataSet">
+            <summary>
+            Gets new data structure for class data as a DataSet.
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.FakeClassStructureInfo.ClassType">
+            <summary>
+            Class type
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.FakeClassStructureInfo`1.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="T:CMS.Tests.CMSAssert">
+            <summary>
+            Custom assertions
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.CMSAssert.All(System.Action[])">
+            <summary>
+            Execute multiple assertions
+            </summary>
+            <param name="assertionsToRun">Assertions to be executed</param>
+        </member>
+        <member name="M:CMS.Tests.CMSAssert.QueryEquals(System.String,System.String)">
+            <summary>
+            Asserts whether two queries equal
+            </summary>
+            <param name="current">Current query</param>
+            <param name="expected">Expected query</param>
+        </member>
+        <member name="T:CMS.Tests.InfoFake`1">
+            <summary>
+            Fakes the given info
+            </summary>
+        </member>
+        <member name="T:CMS.Tests.InfoFake">
+            <summary>
+            Fakes the given info
+            </summary>
+        </member>
+        <member name="T:CMS.Tests.IFake">
+            <summary>
+            Interface for the fakes
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.IFake.Reset">
+            <summary>
+            Resets the fake
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.InfoFake.mNestedFakes">
+            <summary>
+            Nested fakes
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.InfoFake.#ctor(System.Type)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.InfoFake.FakeInfo(System.Type)">
+            <summary>
+            Fakes the info object
+            </summary>
+            <param name="type">Info type to fake</param>
+        </member>
+        <member name="M:CMS.Tests.InfoFake.ResetInfo(System.Type)">
+            <summary>
+            Resets the info fake
+            </summary>
+            <param name="type">Info type to fake</param>
+        </member>
+        <member name="M:CMS.Tests.InfoFake.Reset">
+            <summary>
+            Resets the fake
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.InfoFake.InfoType">
+            <summary>
+            Info type
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.InfoFake.ClassStructureInfo">
+            <summary>
+            Faked class structure info
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.InfoFake`1.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="T:CMS.Tests.InfoProviderFake`2">
+            <summary>
+            Fakes the given info and provider
+            </summary>
+        </member>
+        <member name="F:CMS.Tests.InfoProviderFake`2.mProviders">
+            <summary>
+            Faked provider
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.InfoProviderFake`2.WithData(`0[])">
+            <summary>
+            Fakes the data for the given
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.InfoProviderFake`2.FakeProvider(CMS.DataEngine.BaseAbstractInfoProvider,CMS.DataEngine.MemoryDataQuerySource)">
+            <summary>
+            Fakes the given provider with the given source
+            </summary>
+            <param name="provider"></param>
+            <param name="source"></param>
+        </member>
+        <member name="M:CMS.Tests.InfoProviderFake`2.Reset">
+            <summary>
+            Resets the fake
+            </summary>
+        </member>
+        <member name="T:CMS.Tests.IntegrationTests">
+            <summary>
+            Base class for integration tests
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.IntegrationTests.#ctor(System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="isolated">If true, the test context is isolated</param>
+        </member>
+        <member name="M:CMS.Tests.IntegrationTests.InitDatabase">
+            <summary>
+            Sets up the test database
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.IntegrationTests.CleanUpDatabase">
+            <summary>
+            Cleans up the test database
+            </summary>
+        </member>
+        <member name="T:CMS.Tests.UnitTestExtensions">
+            <summary>
+            Extension methods for tests
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.UnitTestExtensions.GetTestQueryMark">
+            <summary>
+            Gets the unique SQL query mark for a unit test
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.UnitTestExtensions.FakeExecution(CMS.DataEngine.IDataQuery,System.Action{CMS.DataEngine.ExecuteQueryEventArgs{System.Data.DataSet}})">
+            <summary>
+            Fakes the execution of a query
+            </summary>
+            <param name="query">Query to fake</param>
+            <param name="execution">Execution code</param>
+        </member>
+        <member name="T:CMS.Tests.FakeStorageProvider">
+             <summary>
+             Testing IO storage provider.
+             
+             Usage example:
+             
+                [Test]
+                public void SampleTestMethod()
+                {
+                    TestStorageProvider provider = TestStorageProvider.GetMappedProvider();
+                    provider.FileObject.ReadAllText("path").ReturnsForAnyArgs("text");
+                    string result = CMS.IO.File.ReadAllText("path");
+            
+                    Assert.AreEqual("text", result);
+                }
+             
+             </summary>
+        </member>
+        <member name="M:CMS.Tests.FakeStorageProvider.#ctor(System.String)">
+            <summary>
+            Creates new instance of test storage provider.
+            </summary>
+            <param name="webApplicationPath">Web application path.</param>
+        </member>
+        <member name="M:CMS.Tests.FakeStorageProvider.CreateFileProviderObject">
+            <summary>
+            Creates new directory provider object
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.FakeStorageProvider.CreateDirectoryProviderObject">
+            <summary>
+            Creates new directory provider object
+            </summary>
+        </member>
+        <member name="M:CMS.Tests.FakeStorageProvider.GetFileInfo(System.String)">
+            <summary>
+            Returns new instance of FileInfo object.
+            </summary>
+            <param name="filename">File name</param>
+        </member>
+        <member name="M:CMS.Tests.FakeStorageProvider.GetDirectoryInfo(System.String)">
+            <summary>
+            Returns new instance of directory info.
+            </summary>
+            <param name="path">Path</param> 
+        </member>
+        <member name="M:CMS.Tests.FakeStorageProvider.GetFileStream(System.String,CMS.IO.FileMode)">
+            <summary>
+            Returns new instance of file stream.
+            </summary>
+            <param name="path">Path to file</param>
+            <param name="mode">File mode</param>  
+        </member>
+        <member name="M:CMS.Tests.FakeStorageProvider.GetFileStream(System.String,CMS.IO.FileMode,CMS.IO.FileAccess)">
+            <summary>
+            Returns new instance of file stream.
+            </summary>
+            <param name="path">Path to file</param>
+            <param name="mode">File mode</param>    
+            <param name="access">File access</param>
+        </member>
+        <member name="M:CMS.Tests.FakeStorageProvider.GetFileStream(System.String,CMS.IO.FileMode,CMS.IO.FileAccess,CMS.IO.FileShare)">
+            <summary>
+            Returns new instance of file stream.
+            </summary>
+            <param name="path">Path to file</param>
+            <param name="mode">File mode</param>    
+            <param name="access">File access</param>        
+            <param name="share">Sharing permissions</param>
+        </member>
+        <member name="M:CMS.Tests.FakeStorageProvider.GetFileStream(System.String,CMS.IO.FileMode,CMS.IO.FileAccess,CMS.IO.FileShare,System.Int32)">
+            <summary>
+            Returns new instance of file stream.
+            </summary>
+            <param name="path">Path to file</param>
+            <param name="mode">File mode</param>    
+            <param name="access">File access</param>
+            <param name="bufferSize">Buffer size</param>
+            <param name="share">Sharing permissions</param>
+        </member>
+        <member name="M:CMS.Tests.FakeStorageProvider.GetMappedProvider(System.String,System.String)">
+            <summary>
+            Returns new instance of TestStorageProvider and maps provider to given path.
+            </summary>
+            <param name="webAppPath">Web application path.</param>
+            <param name="providerPath">Path on which the provider should be mapped.</param>
+        </member>
+        <member name="P:CMS.Tests.FakeStorageProvider.FileObject">
+            <summary>
+            File object.
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.FakeStorageProvider.DirectoryObject">
+            <summary>
+            Directory object.
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.FakeStorageProvider.FileInfoObject">
+            <summary>
+            FileInfo object.
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.FakeStorageProvider.DirectoryInfoObject">
+            <summary>
+            DirectoryInfo object.
+            </summary>
+        </member>
+        <member name="P:CMS.Tests.FakeStorageProvider.FileStreamObject">
+            <summary>
+            FileStream object.
+            </summary>
+        </member>
+    </members>
+</doc>

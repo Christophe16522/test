@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="mvtcombination.customName" xml:space="preserve">
+    <value>Custom name</value>
+  </data>
+  <data name="mvtcombination.name" xml:space="preserve">
+    <value>Combination</value>
+  </data>
+  <data name="edition.v" xml:space="preserve">
+    <value>Ultimate (new)</value>
+  </data>
+  <data name="EditMenu.PreviousStepTo" xml:space="preserve">
+    <value>Move to previous {0} step</value>
+  </data>
+  <data name="sm.twitter.accounts.accesstoken" xml:space="preserve">
+    <value>Access token</value>
+  </data>
+  <data name="sm.twitter.accounts.accesstoken.description" xml:space="preserve">
+    <value>Access token - as obtained on the application API Keys page on Twitter.</value>
+  </data>
+  <data name="sm.twitter.accounts.accesstokensecret" xml:space="preserve">
+    <value>Access token secret</value>
+  </data>
+  <data name="sm.twitter.accounts.accesstokensecret.description" xml:space="preserve">
+    <value>Access token secret - as obtained on the application API Keys page on Twitter.</value>
+  </data>
+  <data name="sm.twitter.application.msg.consumerkeyexists" xml:space="preserve">
+    <value>The Twitter app with the specified API key already exists.</value>
+  </data>
+  <data name="sm.twitter.apps.consumerkey" xml:space="preserve">
+    <value>API key</value>
+  </data>
+  <data name="sm.twitter.apps.consumerkey.description" xml:space="preserve">
+    <value>API key - as obtained on the application API Keys page on Twitter.</value>
+  </data>
+  <data name="sm.twitter.apps.consumersecret" xml:space="preserve">
+    <value>API Secret</value>
+  </data>
+  <data name="sm.twitter.apps.consumersecret.description" xml:space="preserve">
+    <value>API Secret - as obtained on the application API Keys page on Twitter.</value>
+  </data>
+  <data name="settingskey.cmsfilesfriendlyurlextension.description" xml:space="preserve">
+    <value>Specifies extension of files friendly URLs that will be used, such as "&lt;strong&gt;.aspx&lt;/strong&gt;" or "&lt;strong&gt;.html&lt;/strong&gt;". 
+Example: getattachment/&amp;lt;node guid&amp;gt;/myimage.&lt;strong&gt;aspx&lt;/strong&gt; When you omit this value, the files friendly URLs will end with no extension: getattachment/&amp;lt;node guid&amp;gt;/myimage
+You need to &lt;strong&gt;configure IIS to allow custom URL extensions&lt;/strong&gt; before using this setting.</value>
+  </data>
+  <data name="settingskey.cmsfriendlyurlextension.description" xml:space="preserve">
+    <value>Specifies extension of friendly URLs that will be used, such as "&lt;strong&gt;.aspx&lt;/strong&gt;" or "&lt;strong&gt;.html&lt;/strong&gt;". 
+When you omit this value, the friendly URLs will be the same as the alias path - e.g.: &lt;strong&gt;/products/nokia&lt;/strong&gt;
+. You can also specify multiple extensions in format: extension1;extension2;extension3
+You need to &lt;strong&gt;configure IIS to allow custom URL extensions&lt;/strong&gt; before using this setting.</value>
+  </data>
+  <data name="om.invalidchildtype" xml:space="preserve">
+    <value>Document type '{0}' is not allowed as a child of this document.</value>
+  </data>
+  <data name="datacom.buycontact.purchasepoints" xml:space="preserve">
+    <value>Purchase points via your Data.com account</value>
+  </data>
+  <data name="filter.validboolean" xml:space="preserve">
+    <value>Please insert valid boolean value.</value>
+  </data>
+  <data name="Administration-Permissions_Matrix.GlobalAdministrator" xml:space="preserve">
+    <value>Selected user is &lt;strong&gt;administrator&lt;/strong&gt;, therefore automatically granted with all permissions.</value>
+  </data>
+  <data name="cms.query.customization.createdisabled" xml:space="preserve">
+    <value>Queries can be created only for classes belonging to modules still in development or the Custom module.</value>
+  </data>
+  <data name="cms.query.customization.disabled" xml:space="preserve">
+    <value>Editing of queries is only allowed for customizable classes.</value>
+  </data>
+  <data name="documentation.webpartproperties.cachebyqueryparameters" xml:space="preserve">
+    <value>Semicolon separated list of query string parameter names that are a part of cache item name, e.g. rss;campaign. The web part creates a new cache item for each unique value of the specified parameters.</value>
+  </data>
+  <data name="customtable.sqltypenotsupported" xml:space="preserve">
+    <value>SQL type '{0}' for column '{1}' is not supported, change type to '{2}' instead.</value>
+  </data>
+  <data name="customtable.newwizard.mustbeidentitypk" xml:space="preserve">
+    <value>The primary key column must be identity.</value>
+  </data>
+</root>

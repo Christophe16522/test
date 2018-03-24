@@ -1,0 +1,2 @@
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="CMSWebParts_Ecommerce_Checkout_Viewers_MessagePanel" CodeFile="~/CMSWebParts/Ecommerce/Checkout/Viewers/MessagePanel.ascx.cs" %>
+<asp:Label ID="lblMessage" runat="server" EnableViewState="false" Visible="false" CssClass="MessageLabel" />

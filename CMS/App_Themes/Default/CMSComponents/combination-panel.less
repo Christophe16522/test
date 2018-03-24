@@ -1,0 +1,90 @@
+﻿// MVT Combination panel
+
+@combination-panel-height: @base-unit * 3;
+
+.MVTCombinationPanel {
+    padding: 0px @base-unit;
+    background-color: @color-gray-150;
+    white-space: nowrap;
+
+    .Item {
+        display: inline-block;
+        line-height: @combination-panel-height;
+        vertical-align: middle;
+        padding-right: @base-unit * 0.5;
+
+        .btn {
+            vertical-align: baseline;
+        }
+
+        .CustomName {
+            width: @base-unit * 10;
+            display: inherit;
+        }
+
+        select {
+            vertical-align: inherit;
+        }
+
+        & > label {
+            color: @color-blue-70;
+            font-weight: bold;
+        }
+    }
+
+    .DropDownItemDisabled {
+        .action-disabled();
+        pointer-events: inherit;
+    }
+
+    .MVTCombinationEnabled {
+        padding-right: @base-unit * 2;
+
+        .RTL & {
+            padding-right: 0;
+            padding-left: @base-unit * 2;
+        }
+    }
+
+    .RTL & {
+        direction: rtl;
+    }
+}
+
+.MVTCombinationPanelWarning {
+    &.alert {
+        display: block;
+        line-height: @base-unit;
+        margin: 0;
+        padding: (@base-unit * 0.5) @base-unit;
+
+        i {
+            font-size: @base-unit;
+        }
+    }
+}
+
+&.MVTLoading {
+    position: absolute;
+    left: @base-unit * 0.5;
+    top: @base-unit * 0.5 !important;
+    background-color: @color-gray-140;
+    padding: @base-unit * 0.5;
+    z-index: 10001;
+
+    img {
+        vertical-align: middle;
+        display: inline-block;
+    }
+
+    span {
+        margin-left: 10px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+
+    .RTL & {
+        left: auto;
+        right: @base-unit * 0.5;
+    }
+}

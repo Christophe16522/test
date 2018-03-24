@@ -1,0 +1,2 @@
+<%@ Control Language="C#" AutoEventWireup="true" Inherits="CMSWebParts_SocialMedia_LinkedIn_LinkedInApplyWith" CodeFile="~/CMSWebParts/SocialMedia/LinkedIn/LinkedInApplyWith.ascx.cs" %>
+<asp:Literal runat="server" ID="ltlPluginCode" EnableViewState="false" />
